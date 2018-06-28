@@ -1,11 +1,17 @@
 const encodeParam = require('./encodeParam')
 const runTx = require('./runTx')
 const setup = require('./setup')
-const analyzer = require('./analyzer')
+const Analyzer = require('./analyzer')
+const opcodes = require('./opcodes')
+const codeSplitter = require('./codeSplitter')
+const Reporter = require('./reporter')
 
 module.exports = {
   encodeParam,
   runTx,
   setup,
-  analyzer,
+  Analyzer,
+  opcodes,
+  codeSplitter,
+  Reporter,
 }

@@ -4,5 +4,5 @@ const { expect } = require('chai')
 
 it('execute', () => {
   shell.cd('./env')
-  shell.exec('node ../index.js -e 1')
+  shell.exec('node ../index.js -e 10')
 })
