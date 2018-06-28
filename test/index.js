@@ -2,6 +2,11 @@ const shell = require('shelljs')
 const fs = require('fs')
 const { expect } = require('chai')
 
+//it('download contracts', () => {
+  //shell.cd('./env')
+  //shell.exec('node ../index.js -d 10')
+//})
+
 it('compile', () => {
   shell.cd('./env')
   shell.exec('node ../index.js -c')

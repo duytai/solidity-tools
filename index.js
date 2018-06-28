@@ -2,7 +2,7 @@ const shell = require('shelljs')
 const program = require('commander')
 const fs = require('fs')
 const path = require('path')
-const { compile, generate, execute } = require('./src')
+const { compile, generate, execute, download } = require('./src')
 
 const solcPath = path.join(__dirname, 'node_modules/.bin/solcjs')
 const buildPath = path.join(shell.pwd().toString(), './build')
@@ -11,6 +11,7 @@ program
   .option('-c, --compile', 'compile contracts')
   .option('-g, --generate <numTest>', 'generate testcases')
   .option('-e, --execute <numTest>', 'execute program with generated testcases')
+  .option('-d, --download <numContract>', 'download contracts from etherscan.io')
   .parse(process.argv)
 switch (true) {
   case !!program.compile: {
@@ -30,6 +31,11 @@ switch (true) {
       generate({ buildPath, numTest })
     }
     execute({ buildPath, numTest })
+    break
+  }
+  case !!program.download: {
+    const numContracts = parseInt(program.download)
+    download({ buildPath, numContracts })
     break
   }
   default: {

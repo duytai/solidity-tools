@@ -1,13 +1,14 @@
 {
   "name": "soto",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "bin": "index.js",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 100000"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "commander": "^2.15.1",
     "ethereumjs-abi": "^0.6.5",
     "ethereumjs-account": "^2.0.5",
@@ -15,6 +16,7 @@
     "ethereumjs-util": "^5.2.0",
     "ethereumjs-vm": "^2.3.5",
     "merkle-patricia-tree": "^2.3.1",
+    "needle": "^2.2.1",
     "q": "^1.5.1",
     "rlp": "^2.0.0",
     "shelljs": "^0.8.2",
