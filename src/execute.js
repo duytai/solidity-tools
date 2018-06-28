@@ -33,8 +33,8 @@ module.exports = ({ buildPath, numTest }) => {
       const param = constructor ? encodeParam(constructor, i).toString('hex') : ''
       const rawTx1 = {
         nonce: `0x00`,
-        gasPrice: '0x09184e72a000',
-        gasLimit: '0x90710',
+        gasPrice: '0x00',
+        gasLimit: '0xffffffffffff',
         data: `0x${bin}${param}` 
       }   
       await setup({ keyPair, stateTrie })
@@ -42,11 +42,12 @@ module.exports = ({ buildPath, numTest }) => {
       vm.on('step', state => watcher.onStep(state))
       const { createdAddress } = await runTx({ keyPair, vm, rawTx: rawTx1 })
       watcher.stop()
+      vm.removeAllListeners()
       for (let j = 0; j < funcs.length; j++) {
         const rawTx2 = {
           nonce: `0x00`,
-          gasPrice: '0x09184e72a000',
-          gasLimit: '0x20710',
+          gasPrice: '0x00',
+          gasLimit: '0xffffffffffff',
           value: '0x00',
           to: `0x${createdAddress.toString('hex')}`,
           data: `0x${encodeParam(funcs[j], i).toString('hex')}` 
@@ -55,6 +56,7 @@ module.exports = ({ buildPath, numTest }) => {
         vm.on('step', (state) => watcher.onStep(state))
         await runTx({ keyPair, vm, rawTx: rawTx2 })
         watcher.stop()
+        vm.removeAllListeners()
       }
       reporter.addAnalyzer(analyzer)
     }

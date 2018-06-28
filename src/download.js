@@ -36,8 +36,8 @@ module.exports = async ({ buildPath, numContracts }) => {
         .eq(1)
         .text()
         .replace(/\n/gi, '')
-      const code = $('#editor').html()
-      const abi = $('#js-copytextarea2').html().replace(/&quot;/g, '"')
+      const code = $('#editor').text()
+      const abi = $('#js-copytextarea2').text().replace(/&quot;/g, '"')
       if (name && code) {
         console.log(`>> write ${name}_${data}.sol`)
         fs.writeFileSync(path.join(buildPath, '../', `${name}_${data}.sol`), code, 'utf8')
