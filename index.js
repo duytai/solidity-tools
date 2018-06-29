@@ -30,16 +30,11 @@ switch (true) {
   }
   case !!program.generate: {
     const numTest = parseInt(program.generate)
-    if (!fs.existsSync(buildPath)) compile({ solcPath, buildPath })
     generate({ buildPath, numTest })
     break
   }
   case !!program.execute: {
     const numTest = parseInt(program.execute)
-    if (!fs.existsSync(buildPath)) {
-      compile({ solcPath, buildPath })
-      generate({ buildPath, numTest })
-    }
     execute({ buildPath, numTest })
     break
   }
