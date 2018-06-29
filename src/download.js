@@ -3,6 +3,7 @@ const needle = require('needle')
 const Q = require('q')
 const fs = require('fs')
 const path = require('path')
+const shell = require('shelljs')
 
 const BASE_URL = 'https://etherscan.io/contractsVerified/' 
 const BASE_CONTRACT_URL = 'https://etherscan.io/address/'
@@ -16,8 +17,16 @@ const dataFromURL = (url) => {
   return promise
 }
 module.exports = async ({ buildPath, numContracts }) => {
+  const configPath = path.join(buildPath, '../', 'contracts.config')
   let contractCount = 0
   let curPage = 1
+  let config = {
+    contracts: [] 
+  }
+  const configExists = fs.existsSync(configPath)
+  if (configExists) {
+    config = JSON.parse(fs.readFileSync(configPath), 'utf8')
+  }
   while (contractCount < numContracts) {
     const URL = `${BASE_URL}${curPage}` 
     const body = await dataFromURL(URL)
@@ -41,6 +50,13 @@ module.exports = async ({ buildPath, numContracts }) => {
       if (name && code) {
         console.log(`>> write ${name}_${data}.sol`)
         fs.writeFileSync(path.join(buildPath, '../', `${name}_${data}.sol`), code, 'utf8')
+        if (!config.contracts.map(({ addr }) => addr).includes(data)) {
+          config.contracts.push({
+            name,
+            addr: data,
+          })
+        }
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
         contractCount++
         if (contractCount >= numContracts) {
           break

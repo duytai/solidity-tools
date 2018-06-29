@@ -6,7 +6,6 @@ module.exports = ({ buildPath, numTest }) => {
   const abiFiles = shell.ls(`${buildPath}/*.abi`)
   abiFiles.forEach(abiFile => {
     const abi = JSON.parse(fs.readFileSync(abiFile, 'utf8')) 
-    console.log(abiFile)
     abi.forEach(func => {
       if (!func.inputs) return
       func.inputs.forEach((input) => {

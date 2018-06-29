@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const shell = require('shelljs')
 const program = require('commander')
 const fs = require('fs')

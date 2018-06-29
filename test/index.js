@@ -4,16 +4,16 @@ const { expect } = require('chai')
 
 //it('download contracts', () => {
   //shell.cd('./env')
-  //shell.exec('node ../index.js -d 10')
+  //shell.exec('node ../index.js -d 2')
 //})
 
-//it('compile', () => {
-  //shell.cd('./env')
-  //shell.exec('node ../index.js -c')
-  //const files = shell.ls('build/*.{abi,bin}')
-  //expect(files.length).gt(0)
-  //shell.cd('../')
-//})
+it('compile', () => {
+  shell.cd('./env')
+  shell.exec('node ../index.js -c')
+  const files = shell.ls('build/*.{abi,bin}')
+  expect(files.length).gt(0)
+  shell.cd('../')
+})
 
 //it('generate', () => {
   //shell.cd('./env')
@@ -31,8 +31,8 @@ const { expect } = require('chai')
   //shell.cd('../')
 //})
 
-it('execute', () => {
-  shell.cd('./env')
-  shell.exec('node ../index.js -e 1')
-  shell.cd('../')
-})
+//it('execute', () => {
+  //shell.cd('./env')
+  //shell.exec('node ../index.js -e 1')
+  //shell.cd('../')
+//})
