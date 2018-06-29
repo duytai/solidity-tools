@@ -19,17 +19,17 @@ class Analyzer {
   constructor() {
     this.counters = []
   }
-  watch (code) {
-    const addressCounter = buildAddressCounter(code)
-    let isStop = false
+  watcher () {
+    let addressCounter = {}
     return {
       onStep: state => {
-        if (!isStop) {
-          addressCounter[state.pc]++
+        if (!addressCounter[state.pc]) {
+          addressCounter[state.pc] = 0
         }
+        addressCounter[state.pc]++
       },
-      stop: () => {
-        isStop = true
+      stop: (code) => {
+        addressCounter = Object.assign(buildAddressCounter(code), addressCounter)
         this.counters.push(addressCounter)
       },
     }

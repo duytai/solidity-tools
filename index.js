@@ -16,7 +16,7 @@ const homePath = shell.pwd().toString()
 const solcPath = path.join(__dirname, 'node_modules/.bin/solcjs')
 const buildPath = path.join(homePath, './build')
 program
-  .version('0.0.1')
+  .version('0.0.3')
   .option('-c, --compile', 'compile contracts')
   .option('-g, --generate <numTest>', 'generate testcases')
   .option('-e, --execute <numTest>', 'execute program with generated testcases')
