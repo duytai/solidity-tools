@@ -4,6 +4,7 @@ const Q = require('q')
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
+const { expect } = require('chai')
 
 const BASE_URL = 'https://etherscan.io/contractsVerified/' 
 const BASE_CONTRACT_URL = 'https://etherscan.io/address/'
@@ -48,7 +49,7 @@ module.exports = async ({ buildPath, numContracts }) => {
       const code = $('#editor').text()
       const abi = $('#js-copytextarea2').text().replace(/&quot;/g, '"')
       if (name && code) {
-        console.log(`>> write ${name}_${data}.sol`)
+        console.log(`${'\u2713'.green} ${name}_${data}.sol`)
         fs.writeFileSync(path.join(buildPath, '../', `${name}_${data}.sol`), code, 'utf8')
         if (!config.contracts.map(({ addr }) => addr).includes(data)) {
           config.contracts.push({
@@ -56,13 +57,19 @@ module.exports = async ({ buildPath, numContracts }) => {
             addr: data,
           })
         }
-        fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
         contractCount++
         if (contractCount >= numContracts) {
+          fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
+          console.log(`${'\u2713'.green} contracts.config`)
           break
         }
       }
     }
     curPage++
   }
+  expect(fs.existsSync(configPath)).to.equal(true)
+  fs.readdir(shell.pwd().toString(), (error, files) => {
+    const solFiles = files.filter(f => /\.sol$/.test(f))
+    expect(solFiles.length).gte(numContracts)
+  })
 }

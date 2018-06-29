@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require('colors')
 const shell = require('shelljs')
 const program = require('commander')
 const fs = require('fs')
@@ -11,8 +12,9 @@ const {
   reset,
 } = require('./src')
 
+const homePath = shell.pwd().toString()
 const solcPath = path.join(__dirname, 'node_modules/.bin/solcjs')
-const buildPath = path.join(shell.pwd().toString(), './build')
+const buildPath = path.join(homePath, './build')
 program
   .version('0.0.1')
   .option('-c, --compile', 'compile contracts')
@@ -51,7 +53,7 @@ switch (true) {
     break
   }
   default: {
-    console.log('>> unknown parameters')
+    console.log(`${'\u2620'.red} unknown parameters`)
     process.exit()
   }
 }
