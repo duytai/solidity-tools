@@ -29,7 +29,7 @@ module.exports = ({ buildPath, numTest }) => {
       const analyzer = new Analyzer(bin)
       const keyPair = require('./data/key-pair.json')
       const constructor = abi.find(({ type }) => type === 'constructor')
-      const funcs = abi.filter(({ type }) => type === 'function')
+      const funcs = abi.filter(({ type, inputs }) => type === 'function' && !!inputs)
       const param = constructor ? encodeParam(constructor, i).toString('hex') : ''
       const rawTx1 = {
         nonce: `0x00`,
