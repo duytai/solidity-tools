@@ -68,7 +68,9 @@ module.exports = ({ buildPath, numTest }) => {
         }
         reporter.addAnalyzer(analyzer)
       }
-      reporter.report()
+      reporter.report({
+        file: path.join(buildPath, '../full.log'),
+      })
     })
   })
 }
