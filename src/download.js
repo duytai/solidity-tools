@@ -46,7 +46,9 @@ module.exports = async ({ buildPath, numContracts }) => {
         .eq(1)
         .text()
         .replace(/\n/gi, '')
-      const code = $('#editor').text()
+      const code = $('#editor')
+        .text()
+        .replace(/\d+\.\d+\.\d+/, '0.4.24')
       const abi = $('#js-copytextarea2').text().replace(/&quot;/g, '"')
       if (name && code) {
         console.log(`${'\u2713'.green} ${name}_${data}.sol`)

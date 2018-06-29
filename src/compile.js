@@ -13,7 +13,7 @@ module.exports = ({ solcPath, buildPath }) => {
     expect(solFiles.length).gte(1)
     safeRemovePath(buildPath)
     shell.mkdir(buildPath)
-    shell.exec(`${solcPath} --abi --bin *.sol -o build`)
+    shell.exec(`${solcPath} --abi --bin *.sol -o build | grep "error"`)
     const configPath = path.join(buildPath, '../contracts.config')
     if (fs.existsSync(configPath)) {
       const { contracts } = JSON.parse(fs.readFileSync(configPath, 'utf8'))
